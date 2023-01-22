@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Desactivar el idioma por defecto
     echo ""
     echo ""
