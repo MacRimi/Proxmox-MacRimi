@@ -8,7 +8,7 @@
 # e
 # rmmod nouveau
 
-# Setup temporary environment
+# Configurar entorno temporal
 trap cleanup EXIT
 function cleanup() {
   popd >/dev/null
@@ -17,24 +17,24 @@ function cleanup() {
 TMP_DIR=$(mktemp -d)
 pushd $TMP_DIR >/dev/null
 
-# Install NVidia drivers prerequisites
+# Instalar los requisitos previos de los controladores de NVidia
 apt-get install -qqy pve-headers-`uname -r` gcc make 
 
-# Install NVidia drivers
+# Instalar los controladores de NVidia
 LATEST_DRIVER=$(wget -qLO - https://download.nvidia.com/XFree86/Linux-x86_64/latest.txt | awk '{print $2}')
 LATEST_DRIVER_URL="https://download.nvidia.com/XFree86/Linux-x86_64/${LATEST_DRIVER}"
 INSTALL_SCRIPT=$(basename $LATEST_DRIVER_URL)
 wget -qLO $INSTALL_SCRIPT $LATEST_DRIVER_URL
 bash $INSTALL_SCRIPT --silent
 
-# Install NVidia Persistenced
+# Instalar NVidia persistente
 #/usr/share/doc/NVIDIA_GLX-1.0/sample/nvidia-persistenced-init.tar.bz2 
 if [ -f /usr/share/doc/NVIDIA_GLX-1.0/samples/nvidia-persistenced-init.tar.bz2 ]; then
   tar -jxvf /usr/share/doc/NVIDIA_GLX-1.0/samples/nvidia-persistenced-init.tar.bz2  
   bash ./nvidia-persistenced-init/install.sh
 fi
 
-# Install NVidia Container Runtime
+# Instalar NVidia Container Runtime
 wget -qLO - https://nvidia.github.io/nvidia-container-runtime/gpgkey | apt-key add - 
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 wget -qLO - https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list | tee /etc/apt/sources.list.d/nvidia-container-runtime.list
