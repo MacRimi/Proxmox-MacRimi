@@ -23,8 +23,7 @@ pushd $TMP_DIR >/dev/null
 apt-get install -qqy pve-headers-`uname -r` gcc make 
 
 # Instalar los controladores de NVidia
-# LATEST_DRIVER=$(wget -qLO - https://download.nvidia.com/XFree86/Linux-x86_64/latest.txt | awk '{print $2}')
-LATEST_DRIVER=$(wget -qLO - https://download.nvidia.com/XFree86/Linux-x86_64/XFree86/Linux-x86_64/470.161.03 | awk '{print $2}')
+LATEST_DRIVER=$(wget -qLO - https://download.nvidia.com/XFree86/Linux-x86_64/latest.txt | awk '{print $2}')
 LATEST_DRIVER_URL="https://download.nvidia.com/XFree86/Linux-x86_64/${LATEST_DRIVER}"
 INSTALL_SCRIPT=$(basename $LATEST_DRIVER_URL)
 wget -qLO $INSTALL_SCRIPT $LATEST_DRIVER_URL
